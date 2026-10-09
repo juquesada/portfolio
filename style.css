@@ -10,3 +10,6 @@ body {
     max-width: 25rem;
     height: auto;
   }
+  nav ul, nav li {
+    display: contents;
+  }
