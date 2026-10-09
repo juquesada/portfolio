@@ -38,3 +38,10 @@ body {
     border-bottom: 0.4em solid var(--color-accent);
     background-color: oklch(from var(--color-accent) 95% 5% h)
   }
+  form {
+    font: inherit;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-block: 0.4em;
+  }
