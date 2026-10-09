@@ -40,15 +40,12 @@ body {
   }
   input, textarea, button {
     font: inherit;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   input, textarea, button, label {
     display: block;
-  }
-
-  input, textarea {
-    width: 100%;
-    box-sizing: border-box;
   }
 
   label {
