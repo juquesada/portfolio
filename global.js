@@ -11,10 +11,10 @@ const BASE_PATH =
 
 let pages = [
     { url: "", title: "Home" },
-    { url: "projects/", title: "Projects" },
     { url: "contact/", title: "Contact" },
-    { url: "https://github.com/juquesada", title: "GitHub" },
+    { url: "projects/", title: "Projects" },
     { url: "resume/", title: "Resume" },
+    { url: "https://github.com/juquesada", title: "GitHub" },
     ];
 
 let nav = document.createElement("nav");
