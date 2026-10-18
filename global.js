@@ -16,7 +16,7 @@ let pages = [
     { url: "resume/", title: "Resume" },
     { url: "https://github.com/juquesada", title: "GitHub" },
     ];
-
+console.log(pages.map(p => p.title));
 let nav = document.createElement("nav");
 document.body.prepend(nav);
 
