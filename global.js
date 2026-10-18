@@ -16,7 +16,7 @@ let pages = [
     { url: "resume/", title: "Resume" },
     { url: "https://github.com/juquesada", title: "GitHub" },
     ];
-console.log(pages.map(p => p.title));
+
 let nav = document.createElement("nav");
 document.body.prepend(nav);
 
@@ -55,3 +55,20 @@ document.body.insertAdjacentHTML(
       </select>
     </label>`
   );
+
+let select = document.querySelector(".color-scheme select");
+
+function setColorScheme(colorScheme) {
+  document.documentElement.style.setProperty("color-scheme", colorScheme);
+  select.value = colorScheme;
+}
+
+if ("colorScheme" in localStorage) {
+  setColorScheme(localStorage.colorScheme);
+}
+
+select.addEventListener("input", function (event) {
+  console.log("color scheme changed to", event.target.value);
+  setColorScheme(event.target.value);
+  localStorage.colorScheme = event.target.value;
+});
