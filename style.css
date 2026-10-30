@@ -180,3 +180,29 @@ body {
     margin-block: 1em 2em;
     padding: 0.75em;
   }
+
+  #projects-pie-plot path {
+    cursor: pointer;
+    transition: opacity 300ms, fill 300ms;
+  }
+  
+  #projects-pie-plot:has(path:hover) path:not(:hover) {
+    opacity: 0.5;
+  }
+  
+  .legend-item {
+    cursor: pointer;
+  }
+  
+  #projects-pie-plot path.selected,
+  .legend-item.selected {
+    --color: #d63384 !important;
+  }
+  
+  #projects-pie-plot path.selected {
+    fill: var(--color);
+  }
+  
+  .legend-item.selected {
+    font-weight: bold;
+  }
