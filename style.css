@@ -127,7 +127,9 @@ body {
   }
 
   #projects-pie-plot {
+    width: 100%;
     max-width: 20em;
+    flex-shrink: 0;
     margin-block: 2em;
     overflow: visible;
   }
@@ -160,4 +162,16 @@ body {
   
   .legend-item em {
     color: gray;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+  
+  .container .legend {
+    flex: 1;
+    min-width: 15em;
   }
