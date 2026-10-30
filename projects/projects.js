@@ -6,11 +6,19 @@ const projectsContainer = document.querySelector('.projects');
 
 renderProjects(projects, projectsContainer, 'h2');
 
-const data = [1, 2, 3, 4, 5, 5];
+const data = [
+  { value: 1, label: 'apples' },
+  { value: 2, label: 'oranges' },
+  { value: 3, label: 'mangos' },
+  { value: 4, label: 'pears' },
+  { value: 5, label: 'limes' },
+  { value: 5, label: 'cherries' },
+];
+
 const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
 const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-const sliceGenerator = d3.pie();
+const sliceGenerator = d3.pie().value((d) => d.value);
 
 const arcData = sliceGenerator(data);
 const arcs = arcData.map((d) => arcGenerator(d));
