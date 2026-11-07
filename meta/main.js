@@ -74,7 +74,87 @@ function renderCommitInfo(data, commits) {
     dl.append('dd').text(d3.max(fileLengths, (d) => d[1]) ?? 0);
   }
 
+  function renderScatterPlot(data, commits) {
+    const width = 1000;
+    const height = 600;
+    const margin = { top: 10, right: 20, bottom: 40, left: 60 };
+  
+    const container = d3.select('#chart');
+    container.selectAll('*').remove();
+  
+    if (commits.length === 0) {
+      container.append('p').text('No commit data available.');
+      return;
+    }
+  
+    const usableArea = {
+      top: margin.top,
+      right: width - margin.right,
+      bottom: height - margin.bottom,
+      left: margin.left,
+      width: width - margin.left - margin.right,
+      height: height - margin.top - margin.bottom,
+    };
+  
+    const svg = container
+      .append('svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('overflow', 'visible');
+  
+    const xScale = d3
+      .scaleTime()
+      .domain(d3.extent(commits, (d) => d.datetime))
+      .range([usableArea.left, usableArea.right])
+      .nice();
+  
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, 24])
+      .range([usableArea.bottom, usableArea.top]);
+
+    const gridlines = svg
+      .append('g')
+      .attr('class', 'gridlines')
+      .attr('transform', `translate(${usableArea.left}, 0)`);
+    
+    gridlines.call(
+      d3.axisLeft(yScale)
+        .tickValues(d3.range(0, 25, 2))
+        .tickFormat('')
+        .tickSize(-usableArea.width),
+    );
+  
+    const xAxis = d3.axisBottom(xScale);
+  
+    const yAxis = d3
+      .axisLeft(yScale)
+      .tickValues(d3.range(0, 25, 2))
+      .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
+  
+    svg
+      .append('g')
+      .attr('transform', `translate(0, ${usableArea.bottom})`)
+      .call(xAxis);
+  
+    svg
+      .append('g')
+      .attr('transform', `translate(${usableArea.left}, 0)`)
+      .call(yAxis);
+  
+    const dots = svg.append('g').attr('class', 'dots');
+  
+    dots
+      .selectAll('circle')
+      .data(commits)
+      .join('circle')
+      .attr('cx', (d) => xScale(d.datetime))
+      .attr('cy', (d) => yScale(d.hourFrac))
+      .attr('r', 5)
+      .attr('fill', 'steelblue');
+  }
+
 const data = await loadData();
 const commits = processCommits(data);
 
 renderCommitInfo(data, commits);
+renderScatterPlot(data, commits);

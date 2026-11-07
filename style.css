@@ -245,3 +245,18 @@ body {
       font-size: 1.75em;
     }
   }
+
+  #chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #chart .gridlines line {
+    stroke: currentColor;
+    stroke-opacity: 0.1;
+  }
+  
+  #chart .gridlines .domain {
+    display: none;
+  }
