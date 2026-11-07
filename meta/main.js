@@ -140,28 +140,40 @@ function renderCommitInfo(data, commits) {
       .append('g')
       .attr('transform', `translate(${usableArea.left}, 0)`)
       .call(yAxis);
-  
+
+    const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+
+    const rScale = d3
+      .scaleSqrt()
+      .domain([0, maxLines])
+      .range([0, 30]);
+    
+    const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+    
     const dots = svg.append('g').attr('class', 'dots');
-  
+
     dots
-        .selectAll('circle')
-        .data(commits)
-        .join('circle')
-        .attr('cx', (d) => xScale(d.datetime))
-        .attr('cy', (d) => yScale(d.hourFrac))
-        .attr('r', 5)
-        .attr('fill', 'steelblue')
-        .on('mouseenter', (event, commit) => {
-            renderTooltipContent(commit);
-            updateTooltipVisibility(true);
-            updateTooltipPosition(event);
-        })
-        .on('mousemove', (event) => {
-            updateTooltipPosition(event);
-        })
-        .on('mouseleave', () => {
-            updateTooltipVisibility(false);
-        });
+      .selectAll('circle')
+      .data(sortedCommits)
+      .join('circle')
+      .attr('cx', (d) => xScale(d.datetime))
+      .attr('cy', (d) => yScale(d.hourFrac))
+      .attr('r', (d) => rScale(d.totalLines))
+      .attr('fill', 'steelblue')
+      .style('fill-opacity', 0.7)
+      .on('mouseenter', (event, commit) => {
+        d3.select(event.currentTarget).style('fill-opacity', 1);
+        renderTooltipContent(commit);
+        updateTooltipVisibility(true);
+        updateTooltipPosition(event);
+      })
+      .on('mousemove', (event) => {
+        updateTooltipPosition(event);
+      })
+      .on('mouseleave', (event) => {
+        d3.select(event.currentTarget).style('fill-opacity', 0.7);
+        updateTooltipVisibility(false);
+      });
   }
 
   function renderTooltipContent(commit) {
