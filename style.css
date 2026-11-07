@@ -206,3 +206,42 @@ body {
   .legend-item.selected {
     font-weight: bold;
   }
+
+  dl.stats {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.5em 1.5em;
+    margin-block: 1.5em;
+  }
+  
+  .stats dt {
+    grid-row: 1;
+    color: gray;
+    font-size: 0.85em;
+    text-transform: uppercase;
+  }
+  
+  .stats dd {
+    grid-row: 2;
+    margin: 0;
+    font-size: 2.5em;
+  }
+  
+  @media (max-width: 700px) {
+    dl.stats {
+      grid-template-columns: max-content 1fr;
+    }
+  
+    .stats dt,
+    .stats dd {
+      grid-row: auto;
+    }
+  
+    .stats dt {
+      align-self: center;
+    }
+  
+    .stats dd {
+      font-size: 1.75em;
+    }
+  }
