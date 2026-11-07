@@ -306,3 +306,30 @@ body {
   #chart .dots circle:hover {
     transform: scale(1.5);
   }
+
+  @keyframes marching-ants {
+    to {
+      stroke-dashoffset: -8;
+    }
+  }
+  
+  #chart .brush .selection {
+    fill: currentColor;
+    fill-opacity: 0.1;
+    stroke: currentColor;
+    stroke-opacity: 0.7;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
+  }
+  
+  #chart .dots circle.selected {
+    fill: #ff6b6b;
+  }
+  
+  #language-breakdown.stats {
+    grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
+  }
+  
+  #language-breakdown dd {
+    font-size: 1.25em;
+  }
