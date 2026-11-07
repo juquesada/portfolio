@@ -144,13 +144,69 @@ function renderCommitInfo(data, commits) {
     const dots = svg.append('g').attr('class', 'dots');
   
     dots
-      .selectAll('circle')
-      .data(commits)
-      .join('circle')
-      .attr('cx', (d) => xScale(d.datetime))
-      .attr('cy', (d) => yScale(d.hourFrac))
-      .attr('r', 5)
-      .attr('fill', 'steelblue');
+        .selectAll('circle')
+        .data(commits)
+        .join('circle')
+        .attr('cx', (d) => xScale(d.datetime))
+        .attr('cy', (d) => yScale(d.hourFrac))
+        .attr('r', 5)
+        .attr('fill', 'steelblue')
+        .on('mouseenter', (event, commit) => {
+            renderTooltipContent(commit);
+            updateTooltipVisibility(true);
+            updateTooltipPosition(event);
+        })
+        .on('mousemove', (event) => {
+            updateTooltipPosition(event);
+        })
+        .on('mouseleave', () => {
+            updateTooltipVisibility(false);
+        });
+  }
+
+  function renderTooltipContent(commit) {
+    if (!commit || Object.keys(commit).length === 0) return;
+  
+    const link = document.getElementById('commit-link');
+    link.href = commit.url;
+    link.textContent = commit.id;
+  
+    document.getElementById('commit-date').textContent =
+      commit.datetime.toLocaleDateString('en', {
+        dateStyle: 'full',
+      });
+  
+    document.getElementById('commit-time').textContent =
+      commit.datetime.toLocaleTimeString('en', {
+        timeStyle: 'short',
+      });
+  
+    document.getElementById('commit-author').textContent = commit.author;
+    document.getElementById('commit-lines').textContent = commit.totalLines;
+  }
+  
+  function updateTooltipVisibility(isVisible) {
+    const tooltip = document.getElementById('commit-tooltip');
+    tooltip.hidden = !isVisible;
+  }
+  
+  function updateTooltipPosition(event) {
+    const tooltip = document.getElementById('commit-tooltip');
+    const gap = 12;
+    const bounds = tooltip.getBoundingClientRect();
+  
+    const left = Math.max(
+      gap,
+      Math.min(event.clientX + gap, window.innerWidth - bounds.width - gap),
+    );
+  
+    const top = Math.max(
+      gap,
+      Math.min(event.clientY + gap, window.innerHeight - bounds.height - gap),
+    );
+  
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
   }
 
 const data = await loadData();

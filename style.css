@@ -260,3 +260,49 @@ body {
   #chart .gridlines .domain {
     display: none;
   }
+
+  dl.info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4em 1em;
+    margin: 0;
+    transition: opacity 200ms, visibility 200ms;
+  }
+  
+  dl.info dt {
+    color: gray;
+  }
+  
+  dl.info dd {
+    margin: 0;
+  }
+  
+  .tooltip {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+    z-index: 1000;
+    max-width: min(24em, calc(100vw - 2em));
+    padding: 1em;
+    background-color: Canvas;
+    color: CanvasText;
+    border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+    border-radius: 0.5em;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 15%);
+    pointer-events: none;
+  }
+  
+  dl.info[hidden] {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  #chart .dots circle {
+    transition: transform 200ms;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  
+  #chart .dots circle:hover {
+    transform: scale(1.5);
+  }
