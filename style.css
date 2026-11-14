@@ -8,11 +8,13 @@ body {
          and use the OS’s UI font as the website font
        */
     font: 100%/1.5 system-ui;
-    max-width: 100ch;
-    margin-inline: max(5em, (100% - 100ch) / 2);
+    box-sizing: border-box;
+    width: min(100%, 100ch + 2rem);
+    margin: 0 auto;
+    padding: 1rem;
   }
   img {
-    max-width: 25rem;
+    max-width: min(100%, 25rem);
     height: auto;
   }
   nav ul, nav li {
@@ -71,19 +73,21 @@ body {
 
   .projects {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15em), 1fr));
     gap: 1em;
   }
-
+  
   .projects article {
+    min-width: 0;
     display: grid;
     grid-row: span 3;
     grid-template-rows: subgrid;
     gap: 1em;
   }
-
+  
   .projects h2 {
     margin: 0;
+    overflow-wrap: anywhere;
   }
 
   h1 {
@@ -333,3 +337,56 @@ body {
   #language-breakdown dd {
     font-size: 1.25em;
   }
+
+  /* Fit project images within their columns without cropping. */
+.projects article > img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: contain;
+  align-self: start;
+}
+
+.projects h2 a {
+  color: inherit;
+  text-underline-offset: 0.15em;
+}
+
+.projects h2 a:hover {
+  color: var(--color-accent);
+}
+
+/* Adjust navigation and chart controls for smaller screens. */
+@media (max-width: 700px) {
+  .color-scheme {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 0.75em;
+  }
+
+  nav {
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    flex: 1 1 28%;
+  }
+
+  .container {
+    gap: 1em;
+  }
+
+  .container .legend {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #projects-pie-plot {
+    max-width: min(100%, 20em);
+  }
+}
