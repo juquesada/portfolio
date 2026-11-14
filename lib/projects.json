@@ -1,9 +1,10 @@
 [
   {
-    "title": "Lorem ipsum dolor sit.",
-    "year" : "2024",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor, architecto dicta! Numquam impedit architecto corrupti eos ipsa mollitia necessitatibus voluptatem nostrum corporis at iusto fugiat aut, placeat non. Eius, sunt."
+    "title": "Bikewatching",
+    "year": "2026",
+    "image": "images/bikewatching.png",
+    "description": "An interactive map of Bluebikes traffic in Boston and Cambridge. Explore bike lanes and use the time slider to compare station arrivals, departures, and overall activity during March 2024.",
+    "url": "https://juquesada.github.io/bikewatching/"
   },
   {
     "title": "Totam, consequuntur consequatur? Quos.",

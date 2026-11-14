@@ -127,12 +127,19 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     const article = document.createElement('article');
 
     const heading = document.createElement(headingLevel);
-    heading.textContent = project.title || 'Untitled project';
+    if (project.url) {
+      const link = document.createElement('a');
+      link.href = new URL(project.url, import.meta.url).href;
+      link.textContent = project.title || 'Untitled project';
+      heading.appendChild(link);
+    } else {
+      heading.textContent = project.title || 'Untitled project';
+    }
     article.appendChild(heading);
 
     if (project.image) {
       const image = document.createElement('img');
-      image.src = project.image;
+      image.src = new URL(project.image, import.meta.url).href;
       image.alt = project.title || 'Project image';
       article.appendChild(image);
     }
