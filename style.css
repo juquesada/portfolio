@@ -119,8 +119,7 @@ body {
   }
   
   #profile-stats dd {
-    grid-area: 1 / 1;
-    padding-top: min(46vh, 65vw);
+    grid-row: 2;
     margin: 0;
     font-size: 2em;
   }
@@ -227,8 +226,7 @@ body {
   }
   
   .stats dd {
-    grid-area: 1 / 1;
-    padding-top: min(46vh, 65vw);
+    grid-row: 2;
     margin: 0;
     font-size: 2.5em;
   }
